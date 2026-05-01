@@ -1,8 +1,11 @@
 # skill-creator-strict
 
-스킬을 schema-first로 짜고, stage가 넘어갈 때마다 validator가 통과시킴. 다단계 실행이 들어가는 스킬용으로 [`anthropics/skills/skill-creator`](https://github.com/anthropics/skills/tree/main/skills/skill-creator)를 대체할 수 있게 만든 도구.
+[![License: MIT](https://img.shields.io/github/license/subinium/skill-creator-strict)](./LICENSE)
+[![Release](https://img.shields.io/github/v/release/subinium/skill-creator-strict)](https://github.com/subinium/skill-creator-strict/releases)
+[![Python](https://img.shields.io/badge/python-3.11+-blue)](#호환성)
+[![English README](https://img.shields.io/badge/README-English-blue)](./README.md)
 
-[English README](./README.md)
+스킬을 schema-first로 짜고, stage가 넘어갈 때마다 validator가 통과시킴. 다단계 실행이 들어가는 스킬용으로 [`anthropics/skills/skill-creator`](https://github.com/anthropics/skills/tree/main/skills/skill-creator)를 대체할 수 있게 만든 도구.
 
 ## Why
 

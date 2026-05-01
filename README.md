@@ -1,8 +1,11 @@
 # skill-creator-strict
 
-Schema-first skill authoring with validator-gated stage transitions. A drop-in alternative to [`anthropics/skills/skill-creator`](https://github.com/anthropics/skills/tree/main/skills/skill-creator) for skills with multi-stage execution.
+[![License: MIT](https://img.shields.io/github/license/subinium/skill-creator-strict)](./LICENSE)
+[![Release](https://img.shields.io/github/v/release/subinium/skill-creator-strict)](https://github.com/subinium/skill-creator-strict/releases)
+[![Python](https://img.shields.io/badge/python-3.11+-blue)](#compatibility)
+[![한국어 README](https://img.shields.io/badge/README-한국어-red)](./README.ko.md)
 
-[한국어 README](./README.ko.md)
+Schema-first skill authoring with validator-gated stage transitions. A drop-in alternative to [`anthropics/skills/skill-creator`](https://github.com/anthropics/skills/tree/main/skills/skill-creator) for skills with multi-stage execution.
 
 ## Why
 

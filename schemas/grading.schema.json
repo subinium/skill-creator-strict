@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skill-creator-strict/schemas/grading.schema.json",
+  "title": "GradingResult",
+  "description": "Output of the grader subagent for a single eval run. Field names text/passed/evidence are required exactly — the eval viewer and aggregator depend on these.",
+  "type": "object",
+  "required": ["eval_id", "configuration", "expectations"],
+  "properties": {
+    "eval_id": {"type": "integer", "minimum": 0},
+    "eval_name": {"type": "string"},
+    "configuration": {
+      "enum": ["with_skill", "without_skill", "old_skill", "new_skill"]
+    },
+    "expectations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["text", "passed", "evidence"],
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "The expectation text, copied from evals.json"
+          },
+          "passed": {"type": "boolean"},
+          "evidence": {
+            "type": "string",
+            "description": "Concrete excerpt or observation justifying the verdict"
+          },
+          "discrimination_note": {
+            "type": "string",
+            "description": "Optional grader critique (e.g., trivially-satisfied)"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "summary": {
+      "type": "object",
+      "description": "Aggregated counts for this run. Computed by the grader.",
+      "properties": {
+        "pass_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "passed": {"type": "integer", "minimum": 0},
+        "failed": {"type": "integer", "minimum": 0},
+        "total": {"type": "integer", "minimum": 0}
+      }
+    },
+    "timing": {
+      "type": "object",
+      "description": "Optional. May also live in sibling timing.json.",
+      "properties": {
+        "total_duration_seconds": {"type": "number"},
+        "total_tokens": {"type": "integer"}
+      }
+    },
+    "execution_metrics": {
+      "type": "object",
+      "description": "Optional run-level metrics. Carried from v1 for viewer compatibility.",
+      "properties": {
+        "total_tool_calls": {"type": "integer"},
+        "output_chars": {"type": "integer"},
+        "errors_encountered": {"type": "integer"}
+      }
+    },
+    "user_notes_summary": {
+      "type": "object",
+      "description": "Optional grader-side notes. Surfaced in the viewer.",
+      "properties": {
+        "uncertainties": {"type": "array", "items": {"type": "string"}},
+        "needs_review": {"type": "array", "items": {"type": "string"}},
+        "workarounds": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  },
+  "additionalProperties": false
+}

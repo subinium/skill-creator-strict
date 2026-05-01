@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skill-creator-strict/schemas/benchmark.schema.json",
+  "title": "Benchmark",
+  "description": "Aggregated benchmark across runs and configurations. Consumed by the eval viewer (v1-compatible shape).",
+  "type": "object",
+  "required": ["metadata", "runs", "run_summary"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["skill_name", "timestamp"],
+      "properties": {
+        "skill_name": {"type": "string"},
+        "skill_path": {"type": "string"},
+        "executor_model": {"type": "string"},
+        "analyzer_model": {"type": "string"},
+        "timestamp": {"type": "string"},
+        "evals_run": {
+          "type": "array",
+          "items": {"type": "integer"}
+        },
+        "runs_per_configuration": {"type": "integer", "minimum": 1}
+      }
+    },
+    "runs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["eval_id", "configuration", "result"],
+        "properties": {
+          "eval_id": {"type": "integer"},
+          "configuration": {"type": "string"},
+          "run_number": {"type": "integer"},
+          "result": {
+            "type": "object",
+            "properties": {
+              "pass_rate": {"type": "number"},
+              "passed": {"type": "integer"},
+              "failed": {"type": "integer"},
+              "total": {"type": "integer"},
+              "time_seconds": {"type": "number"},
+              "tokens": {"type": "integer"},
+              "tool_calls": {"type": "integer"},
+              "errors": {"type": "integer"}
+            }
+          },
+          "expectations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["text", "passed"],
+              "properties": {
+                "text": {"type": "string"},
+                "passed": {"type": "boolean"},
+                "evidence": {"type": "string"}
+              }
+            }
+          },
+          "notes": {
+            "type": "array",
+            "items": {"type": "string"}
+          }
+        }
+      }
+    },
+    "run_summary": {
+      "type": "object",
+      "description": "Per-configuration stats plus 'delta' between primary and baseline.",
+      "properties": {
+        "delta": {
+          "type": "object",
+          "description": "Pre-formatted strings for viewer display (e.g., '+0.50').",
+          "properties": {
+            "pass_rate": {"type": "string"},
+            "time_seconds": {"type": "string"},
+            "tokens": {"type": "string"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "pass_rate": {"$ref": "#/$defs/stat"},
+          "time_seconds": {"$ref": "#/$defs/stat"},
+          "tokens": {"$ref": "#/$defs/stat"}
+        }
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Analyst observations. Filled by the analyzer agent or left empty."
+    }
+  },
+  "$defs": {
+    "stat": {
+      "type": "object",
+      "properties": {
+        "mean": {"type": "number"},
+        "stddev": {"type": "number"},
+        "min": {"type": "number"},
+        "max": {"type": "number"}
+      }
+    }
+  }
+}

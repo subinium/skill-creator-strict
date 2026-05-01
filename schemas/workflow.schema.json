@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skill-creator-strict/schemas/workflow.schema.json",
+  "title": "WorkflowState",
+  "description": "Durable manifest tracking stage progress for a skill being created or iterated. Lives at workspace root as workflow_state.json. Read on every invocation to detect resumable runs.",
+  "type": "object",
+  "required": ["skill_name", "skill_type", "current_stage", "current_iteration", "stages", "started_at"],
+  "properties": {
+    "skill_name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "description": "Kebab-case identifier matching SKILL.md frontmatter name"
+    },
+    "skill_type": {
+      "enum": ["narrative", "pipeline"]
+    },
+    "current_stage": {
+      "enum": ["intake", "draft", "test_design", "run", "grade", "aggregate", "review", "improve", "optimize_trigger", "package", "complete"]
+    },
+    "current_iteration": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "started_at": {"type": "string", "format": "date-time"},
+    "skill_path": {
+      "type": "string",
+      "description": "Absolute path to the skill being authored"
+    },
+    "workspace_path": {
+      "type": "string",
+      "description": "Absolute path to the workspace (sibling to skill, holds eval runs and feedback)"
+    },
+    "stages": {
+      "type": "array",
+      "description": "Per-iteration stage records. Append on stage start; update on stage finish. Lookups are by (name, iteration).",
+      "items": {
+        "type": "object",
+        "required": ["name", "iteration", "status"],
+        "properties": {
+          "name": {
+            "enum": ["intake", "draft", "test_design", "run", "grade", "aggregate", "review", "improve", "optimize_trigger", "package"]
+          },
+          "iteration": {"type": "integer", "minimum": 1},
+          "status": {
+            "enum": ["pending", "running", "completed", "failed", "skipped"]
+          },
+          "started_at": {"type": "string", "format": "date-time"},
+          "finished_at": {"type": "string", "format": "date-time"},
+          "input_paths": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "output_paths": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "error": {
+            "type": "object",
+            "required": ["kind", "message"],
+            "properties": {
+              "kind": {"enum": ["validation", "execution", "user_aborted"]},
+              "message": {"type": "string"},
+              "field": {
+                "type": "string",
+                "description": "JSON pointer to offending field (validation errors only)"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

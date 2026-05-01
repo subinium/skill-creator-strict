@@ -1,0 +1,43 @@
+{
+  "skill_name": "skill-creator-strict",
+  "evals": [
+    {
+      "id": 0,
+      "name": "narrative-skill-pdf-style",
+      "prompt": "ok i need a skill for when i'm doing literature reviews and converting research papers to a clean markdown summary. like, the format should always be: TLDR (2 sentences max), key contributions (3-5 bullets), methodology (1 paragraph), limitations (1 paragraph), and a 'why this matters for my research' section at the end. i mostly read AI alignment papers but also some neuro stuff",
+      "files": [],
+      "expectations": [
+        {"text": "Skill is classified as narrative (no eval loop, no multi-stage handoff)"},
+        {"text": "SKILL.md has both name and description in frontmatter"},
+        {"text": "META.md is created separately from SKILL.md"},
+        {"text": "Description includes both what (paper-to-markdown summary) and when (literature review context)"},
+        {"text": "No pipeline ceremony (workflow.json, schemas/, stages/) is created for this narrative skill"}
+      ]
+    },
+    {
+      "id": 1,
+      "name": "pipeline-skill-data-validation",
+      "prompt": "i'm building a thing that takes csv files from our finance team and validates them against a schema, then produces a report of which rows fail validation and why. need to be able to test it on a bunch of csvs since the team's csvs are inconsistent. should be runnable in our CI",
+      "files": [],
+      "expectations": [
+        {"text": "Skill is classified as pipeline (has structured input → output → verification)"},
+        {"text": "schemas/ directory created with at least one .schema.json"},
+        {"text": "stages/ directory has at least one stage script with the documented CLI shape (--in, --out)"},
+        {"text": "evals/evals.json includes test prompts that exercise the validation step"},
+        {"text": "workflow_state.json initialized via scripts.new_skill (not hand-written)"}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "drift-detection-existing-skill",
+      "prompt": "we have an existing skill in /tmp/our-old-skill that we wrote like 6 months ago and the grading.json files coming out of it have fields like 'name' and 'met' instead of 'text' and 'passed'. need to migrate it to the v2 conventions",
+      "files": [],
+      "expectations": [
+        {"text": "scripts.validate is run against the existing grading.json files"},
+        {"text": "The validator's structured error message is shown to the user"},
+        {"text": "Migration is performed by editing the producing stage, not by weakening the schema"},
+        {"text": "Post-migration, scripts.validate passes against the same files"}
+      ]
+    }
+  ]
+}

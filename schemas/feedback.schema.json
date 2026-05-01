@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skill-creator-strict/schemas/feedback.schema.json",
+  "title": "ReviewFeedback",
+  "description": "Output of the eval viewer's 'Submit All Reviews' button. Consumed at the start of the improve stage.",
+  "type": "object",
+  "required": ["reviews", "status", "iteration"],
+  "properties": {
+    "iteration": {"type": "integer", "minimum": 1},
+    "status": {"enum": ["complete", "partial"]},
+    "reviews": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["run_id", "feedback"],
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "pattern": "^eval-\\d+-(with_skill|without_skill|old_skill)$",
+            "description": "Format: eval-<id>-<configuration>"
+          },
+          "feedback": {
+            "type": "string",
+            "description": "Empty string means 'looks fine'."
+          },
+          "timestamp": {"type": "string", "format": "date-time"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

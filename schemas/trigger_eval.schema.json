@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skill-creator-strict/schemas/trigger_eval.schema.json",
+  "title": "TriggerEvalSet",
+  "description": "Eval set for description-optimization (run_loop.py). 20 queries, mix of should-trigger and should-not-trigger, with realistic backstory.",
+  "type": "array",
+  "minItems": 4,
+  "items": {
+    "type": "object",
+    "required": ["query", "should_trigger"],
+    "properties": {
+      "query": {
+        "type": "string",
+        "minLength": 10,
+        "description": "A realistic user prompt — concrete, specific, with backstory. Avoid abstract one-liners."
+      },
+      "should_trigger": {"type": "boolean"}
+    },
+    "additionalProperties": false
+  }
+}

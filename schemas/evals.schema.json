@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skill-creator-strict/schemas/evals.schema.json",
+  "title": "EvalSet",
+  "description": "Test prompts for a skill. Lives at evals/evals.json within the skill directory.",
+  "type": "object",
+  "required": ["skill_name", "evals"],
+  "properties": {
+    "skill_name": {"type": "string"},
+    "evals": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "prompt"],
+        "properties": {
+          "id": {"type": "integer", "minimum": 0},
+          "name": {
+            "type": "string",
+            "description": "Descriptive slug for directory naming (e.g., 'pdf-with-tables')"
+          },
+          "prompt": {"type": "string"},
+          "files": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Optional input file paths relative to skill root"
+          },
+          "expectations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["text"],
+              "properties": {
+                "text": {"type": "string"},
+                "kind": {"enum": ["automatic", "human"], "default": "automatic"}
+              },
+              "additionalProperties": false
+            },
+            "description": "Verifiable claims about the output. v1 vocabulary preserved for viewer/aggregator compatibility."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

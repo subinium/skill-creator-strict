@@ -13,7 +13,7 @@
 ## Install
 
 ```bash
-git clone https://github.com/<owner>/skill-creator-strict
+git clone https://github.com/subinium/skill-creator-strict
 cd skill-creator-strict
 python -m venv .venv
 .venv/bin/pip install jsonschema

@@ -21,7 +21,7 @@ The split is the prerequisite for several subsequent decisions.
 
 ## Decision 2 — Skill type is explicit
 
-**Thesis:** Every skill produced by the booster is a pipeline skill with `workflow_state.json` + `stages/` + validators.
+**Thesis:** Every skill produced by skill-creator-strict is a pipeline skill with `workflow_state.json` + `stages/` + validators.
 
 **Antithesis:** Most real skills change response style or apply a template — they have no inter-stage data handoff. Forcing pipeline structure adds friction without benefit. Upstream's prose looseness is correct for that class.
 
@@ -79,7 +79,7 @@ If a user wants `subagent_type` registration, they manually copy or symlink to t
 
 ## Decision 7 — Keep `expectations` as the canonical term (corrigendum)
 
-**Thesis (initial):** Rename `expectations` → `assertions` for vocabulary consistency. Upstream mixes the two terms inconsistently; the booster should pick one.
+**Thesis (initial):** Rename `expectations` → `assertions` for vocabulary consistency. Upstream mixes the two terms inconsistently; skill-creator-strict should pick one.
 
 **Antithesis (post-audit):** Upstream's actual schemas use `expectations` everywhere; the mixed usage is in prose, not data files. Renaming the schema field cascades into rewriting `aggregate_benchmark.py`, `generate_review.py` (~470 lines), `viewer.html` (~1300 lines), and `eval_review.html`. Cost: 2000+ lines of fork. Benefit: ~20 tokens saved per skill at runtime.
 
@@ -101,11 +101,11 @@ A useful pattern: when a renaming feels clean, count the consumers it touches be
 
 ## Decision 10 — Name four authoring principles as the philosophical referee
 
-**Thesis:** The booster's stage architecture stands on its own technical merits — schema-first contracts, validator-gated transitions, per-iteration manifest. No articulated philosophy needed.
+**Thesis:** The skill-creator-strict's stage architecture stands on its own technical merits — schema-first contracts, validator-gated transitions, per-iteration manifest. No articulated philosophy needed.
 
 **Antithesis:** Architecture without articulated values drifts. Future maintainers face decisions the architecture doesn't decide for them — should this stage produce more output? should this validator be stricter? should we add a "convenience" feature for one user? Without a stated value system, defaults shift toward addition (the LLM bias), and the line gradually loosens.
 
-**Synthesis:** Name four authoring principles, woven into SKILL.md and mapped to the booster's three orientations:
+**Synthesis:** Name four authoring principles, woven into SKILL.md and mapped to skill-creator-strict's three orientations:
 
 1. **Think before coding** (purpose / intake) — surface ambiguity, present alternatives, push back on overcomplication
 2. **Simplicity first** (process / draft) — minimum that solves the problem, no speculation
@@ -120,9 +120,9 @@ The principles aren't a separate doc — they live as named values inside SKILL.
 
 ## Decision 9 — Carry over upstream scripts unchanged where possible
 
-**Thesis:** Rewrite all upstream scripts in booster style for consistency.
+**Thesis:** Rewrite all upstream scripts in skill-creator-strict style for consistency.
 
-**Antithesis:** `run_loop.py`, `improve_description.py`, `run_eval.py`, `generate_report.py`, `generate_review.py`, `viewer.html` are working code. Rewriting introduces regression risk on a path that works. The places where the booster genuinely improves on upstream are localized — input validation, drift detection, structured state.
+**Antithesis:** `run_loop.py`, `improve_description.py`, `run_eval.py`, `generate_report.py`, `generate_review.py`, `viewer.html` are working code. Rewriting introduces regression risk on a path that works. The places where skill-creator-strict genuinely improves on upstream are localized — input validation, drift detection, structured state.
 
 **Synthesis:** Carry upstream scripts unchanged. Forks happen only where audit reveals a real defect:
 - `validate.py` (new)
@@ -142,7 +142,7 @@ These were considered and rejected. Don't add them without revisiting.
 
 1. **Skill-to-skill composition framework.** Out of harness scope.
 2. **Pipeline DAG runner.** The LLM is the orchestrator; `workflow_state.json` is descriptive (manifest), not interpreted (program).
-3. **Self-hosting the booster in a pipeline format.** High cost, low evidence. The booster ships a regression eval set in `evals/evals.json` instead.
+3. **Self-hosting skill-creator-strict in a pipeline format.** High cost, low evidence. The booster ships a regression eval set in `evals/evals.json` instead.
 4. **Auto-rewriting skills from feedback.** Description optimization works because trigger rate is closed-form. Skill rewriting needs human judgment.
 5. **Renaming `expectations` → `assertions`.** See Decision 7.
 6. **A separate `constraints.yaml`.** Hard rules go in mechanism. Soft rules in prose. A third location drifts.

@@ -3,7 +3,7 @@ name: skill-creator-strict
 description: Create new skills, update existing ones, run evals, and optimize triggering. Use whenever the user wants to author a skill, iterate on a skill from feedback, run a benchmark on a skill, or improve a skill's description for triggering accuracy. Pipeline-shaped output with enforced inter-stage contracts.
 ---
 
-# Skill Creator v2
+# Skill Creator Strict
 
 Runtime runbook. The workflow is **goal-driven** — evals are the success criteria, validators verify shape at each transition, and the human review loop verifies quality. Iterate until the criteria are met, not until the prose feels right.
 

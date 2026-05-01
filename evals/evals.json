@@ -30,7 +30,7 @@
     {
       "id": 2,
       "name": "drift-detection-existing-skill",
-      "prompt": "we have an existing skill in /tmp/our-old-skill that we wrote like 6 months ago and the grading.json files coming out of it have fields like 'name' and 'met' instead of 'text' and 'passed'. need to migrate it to the v2 conventions",
+      "prompt": "we have an existing skill in /tmp/our-old-skill that we wrote like 6 months ago and the grading.json files coming out of it have fields like 'name' and 'met' instead of 'text' and 'passed'. need to migrate it to the skill-creator-strict conventions",
       "files": [],
       "expectations": [
         {"text": "scripts.validate is run against the existing grading.json files"},

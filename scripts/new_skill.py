@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bootstrap a new skill directory in the v2 layout.
+"""Bootstrap a new skill directory in the skill-creator-strict layout.
 
 Creates the directory, stub files for the chosen skill type, and an initial
 workflow_state.json with current_stage="draft" (intake is treated as completed

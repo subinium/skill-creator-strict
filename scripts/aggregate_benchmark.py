@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Aggregate per-run grading.json files into benchmark.json (and benchmark.md).
 
-v2 differences from v1:
+Differences from upstream skill-creator:
 - Validates every grading.json against schemas/grading.schema.json before reading
-  (catches v1 → v2 field name drift early)
+  (catches upstream → strict field name drift early)
 - Validates the produced benchmark.json against schemas/benchmark.schema.json
   before writing
 - Reuses v1's directory layout and run/config/timing logic — what worked, works

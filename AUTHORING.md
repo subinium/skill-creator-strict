@@ -8,7 +8,7 @@ For the *why* behind each shape (decision history with full reasoning), see `doc
 
 ## Authoring philosophy — purpose / process / result
 
-The booster's stage architecture instantiates four principles, mapped to the orientations a skill takes (purpose / process / result):
+The skill-creator-strict's stage architecture instantiates four principles, mapped to the orientations a skill takes (purpose / process / result):
 
 | Orientation | Stage | Principle |
 |---|---|---|

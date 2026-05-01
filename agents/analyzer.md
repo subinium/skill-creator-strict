@@ -35,7 +35,7 @@ After the blind comparator picks a winner, **unblind** by reading both skills an
 ## Anti-patterns
 
 - Suggestions that only fix this one test case
-- Suggestions that contradict the v2 "explain why over rigid MUSTs" principle (don't recommend ALL-CAPS imperatives — recommend mechanism instead)
+- Suggestions that contradict the skill-creator-strict "explain why over rigid MUSTs" principle (don't recommend ALL-CAPS imperatives — recommend mechanism instead)
 - Suggestions to add validators that are already covered by existing schemas
 
 ## Output contract

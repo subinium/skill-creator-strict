@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Package a skill folder into a distributable .skill archive.
 
-v2 differences from v1:
+Differences from upstream skill-creator:
 - Validates SKILL.md frontmatter via the schema-driven check (not a separate quick_validate)
 - Includes AUTHORING.md (v2 split) in the archive
 - Excludes the workspace sibling, .venv, .git, build artifacts

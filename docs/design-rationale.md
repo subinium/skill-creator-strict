@@ -101,7 +101,7 @@ A useful pattern: when a renaming feels clean, count the consumers it touches be
 
 ## Decision 10 — Name four authoring principles as the philosophical referee
 
-**Thesis:** The skill-creator-strict's stage architecture stands on its own technical merits — schema-first contracts, validator-gated transitions, per-iteration manifest. No articulated philosophy needed.
+**Thesis:** skill-creator-strict's stage architecture stands on its own technical merits — schema-first contracts, validator-gated transitions, per-iteration manifest. No articulated philosophy needed.
 
 **Antithesis:** Architecture without articulated values drifts. Future maintainers face decisions the architecture doesn't decide for them — should this stage produce more output? should this validator be stricter? should we add a "convenience" feature for one user? Without a stated value system, defaults shift toward addition (the LLM bias), and the line gradually loosens.
 
@@ -142,7 +142,7 @@ These were considered and rejected. Don't add them without revisiting.
 
 1. **Skill-to-skill composition framework.** Out of harness scope.
 2. **Pipeline DAG runner.** The LLM is the orchestrator; `workflow_state.json` is descriptive (manifest), not interpreted (program).
-3. **Self-hosting skill-creator-strict in a pipeline format.** High cost, low evidence. The booster ships a regression eval set in `evals/evals.json` instead.
+3. **Self-hosting skill-creator-strict in a pipeline format.** High cost, low evidence. skill-creator-strict ships a regression eval set in `evals/evals.json` instead.
 4. **Auto-rewriting skills from feedback.** Description optimization works because trigger rate is closed-form. Skill rewriting needs human judgment.
 5. **Renaming `expectations` → `assertions`.** See Decision 7.
 6. **A separate `constraints.yaml`.** Hard rules go in mechanism. Soft rules in prose. A third location drifts.
